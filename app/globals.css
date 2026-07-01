@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0e0d0b;
+}
+
+::selection {
+  background: #c9a24b;
+  color: #0e0d0b;
+}
+
+@layer utilities {
+  .eyebrow {
+    @apply flex items-center gap-3 text-[0.72rem] tracking-[0.32em] uppercase text-brass font-body;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply inline-block w-6 h-px bg-brass;
+  }
+  .eyebrow-center {
+    @apply flex items-center justify-center gap-3 text-[0.72rem] tracking-[0.32em] uppercase text-brass font-body;
+  }
+  .eyebrow-center::before,
+  .eyebrow-center::after {
+    content: "";
+    @apply inline-block w-6 h-px bg-brass;
+  }
+
+  .checker-arch {
+    --sq: 10px;
+    background-image: linear-gradient(45deg, #8b7136 25%, transparent 25%),
+      linear-gradient(-45deg, #8b7136 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #8b7136 75%),
+      linear-gradient(-45deg, transparent 75%, #8b7136 75%);
+    background-size: var(--sq) var(--sq);
+    background-position: 0 0, 0 calc(var(--sq) / 2), calc(var(--sq) / 2) calc(var(--sq) / -2),
+      calc(var(--sq) / -2) 0;
+    background-color: #171310;
+  }
+
+  .fold-divider::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      #8b7136 15%,
+      #8b7136 85%,
+      transparent
+    );
+    opacity: 0.5;
+  }
+
+  .dot-leader {
+    border-bottom: 1px dotted rgba(243, 236, 221, 0.22);
+    transform: translateY(-4px);
+  }
+
+  .scroll-cue {
+    position: relative;
+  }
+  .scroll-cue::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -3px;
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background: #c9a24b;
+    animation: cue 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes cue {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    top: 70%;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .scroll-cue::after {
+    animation: none;
+  }
+}
